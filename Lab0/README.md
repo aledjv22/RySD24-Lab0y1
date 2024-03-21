@@ -54,12 +54,12 @@ Además el archivo hget-test.py tiene tests adicionales que deben ser ejecutados
 ```
 
 ## Tarea Estrella
-
 Opcionalmente, y con la posibilidad de que se otorguen puntos extras en la evaluación parcial, se pide investigar qué mecanismos permiten funcionar a nombres de dominio como:
-- http://中文.tw/
-- https://💩.la
 
-    Ayuda: investigue sobre el término “encoding”.
+- [http://中文.tw/](http://中文.tw/)
+- [https://💩.la](https://💩.la)
+
+**Ayuda:** investigue sobre el término “encoding”.
 
 ## Requisitos del codigo a entregar:
 - No se solicita un informe para este laboratorio, salvo para el punto estrella, cuya respuesta deberá estar dada en texto plano o Markdown. Pero el código que escriban debe contener comentarios con detalles de lo que hicieron. 
