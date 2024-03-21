@@ -36,9 +36,9 @@ Finalmente, la actividad concluye con la evaluación de la API, donde se conside
 
 ## **Parte 2: Creación de una API con Flask**
 1. Complete las funcionalidades de la api que se les entrega en main.py 
-    a. Lógica para buscar la película por su ID y devolver sus detalles
-    b. Lógica para buscar la película por su ID y actualizar sus detalles
-    c. Lógica para buscar la película por su ID y eliminarla
+    1. Lógica para buscar la película por su ID y devolver sus detalles
+    2. Lógica para buscar la película por su ID y actualizar sus detalles
+    3. Lógica para buscar la película por su ID y eliminarla
 2. Implementa la funcionalidad para devolver el listado de películas de un género específico.
 3. Implemente la funcionalidad de búsqueda de películas, devolviendo la lista de películas que tengan determinado string en el título.
 4. Implemente la funcionalidad de sugerir una película aleatoria
