@@ -22,9 +22,12 @@ peliculas = [
 def obtener_peliculas():
     return jsonify(peliculas)
 
-
 def obtener_pelicula(id):
     # Lógica para buscar la película por su ID y devolver sus detalles
+    # Considerando que todas las peliculas estan en orden con respecto a su ID 
+    p_titulo = peliculas[id-1].get("titulo")
+    p_gen = peliculas[id-1].get("genero")
+    pelicula_encontrada = (p_titulo, p_gen)
     return jsonify(pelicula_encontrada)
 
 
@@ -41,11 +44,22 @@ def agregar_pelicula():
 
 def actualizar_pelicula(id):
     # Lógica para buscar la película por su ID y actualizar sus detalles
+    # Se considera un nuevo bloque que "pise" el bloque anterior directamente en lugar de reemplazar los valores 
+    pelicula_actualizada = {
+        "id": id,
+        "titulo": request.json["titulo"],
+        "genero": request.json["genero"]
+    }
+    peliculas[id] = pelicula_actualizada
     return jsonify(pelicula_actualizada)
 
 
 def eliminar_pelicula(id):
     # Lógica para buscar la película por su ID y eliminarla
+    # Considerando que al eliminar un bloque (de tipo diccionario) de la lista, no se modifican los demas elementos. Es decir, queda como un "hueco" con respecto a los IDs
+    # Por eso mismo no podemos usar simplemente la funcion de lista que elimina el elemento que queremos 
+    # (list.remove(x) // esta funcion cambiaria los IDs y por tanto, alteraria las otras funciones
+    peliculas[id] = "Pelicula no encontrada"
     return jsonify({'mensaje': 'Película eliminada correctamente'})
 
 
