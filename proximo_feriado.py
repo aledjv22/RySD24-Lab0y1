@@ -16,27 +16,34 @@ class NextHoliday:
         self.year = date.today().year
         self.holiday = None
 
-    def set_next(self, holidays):
+    def set_next(self, holidays, holiday_type):
         now = date.today()
         today = {
             'day': now.day,
             'month': now.month
         }
-
-        holiday = next(
-            (h for h in holidays if h['mes'] == today['month'] and h['dia'] > today['day'] or h['mes'] > today['month']),
-            holidays[0]
-        )
+        if holiday_type is not None:
+            holiday = next(
+                (h for h in holidays if h['tipo'] == holiday_type and h['mes'] == today['month'] and h['dia'] > today['day'] or h['mes'] > today['month']), 
+                holidays[0]
+            )
+        else:
+            holiday = next(
+                (h for h in holidays if h['mes'] == today['month'] and h['dia'] > today['day'] or h['mes'] > today['month']),
+                holidays[0]
+            )
 
         self.loading = False
         self.holiday = holiday
 
-    def fetch_holidays(self):
+    def fetch_holidays(self, holiday_type):
         response = requests.get(get_url(self.year))
         data = response.json()
-        self.set_next(data)
+        self.set_next(data, holiday_type)
 
     def render(self):
+        response = requests.get(get_url(self.year))
+        data = response.json()
         if self.loading:
             print("Buscando...")
         else:
@@ -49,6 +56,10 @@ class NextHoliday:
             print("Tipo:")
             print(self.holiday['tipo'])
 
-next_holiday = NextHoliday()
-next_holiday.fetch_holidays()
-next_holiday.render()
+    def ret_date(self):
+        return self.holiday
+
+# (Es algo que habia puesto los profes)
+#next_holiday = NextHoliday()
+#next_holiday.fetch_holidays(type=None)
+#next_holiday.render()
