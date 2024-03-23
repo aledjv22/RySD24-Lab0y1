@@ -39,8 +39,6 @@ def agregar_pelicula():
     }
     peliculas.append(nueva_pelicula)
     print(peliculas)
-    return jsonify(nueva_pelicula), 201
-
 
 def actualizar_pelicula(id):
     # Lógica para buscar la película por su ID y actualizar sus detalles
@@ -71,21 +69,52 @@ def obtener_nuevo_id():
         return 1
 
 def feriado_recomendacion(genero):
+    # Obtenemos proximo feriado
     next_holiday = NextHoliday()
     next_holiday.fetch_holidays(holiday_type=None)
     holiday = next_holiday.ret_date()
-    
+    #map = {
+    #    "Ciencia-ficcion": "Ciencia ficción",
+    #    "Accion": "Acción",
+    #    "Fantasia": "Fantasía",
+    #}
+    # llamamos funcion para normalizar los nombres de los generos (debido a la url)
+    map = normalize_genres()
+    # obtenemos el genero particular que seleccionamos
+    genero = map.get(genero, genero)
+    # obtenemos la pelicula con el genero seleccionado
     p_titulos = [pelicula.get("titulo") for pelicula in peliculas if pelicula.get("genero") == genero]
+    # seleccionamos una pelicula randomizada de entre todas con el genero seleccionado
     p_titulo = random.choice(p_titulos)
     return jsonify({
         'prox_feriado': f"{holiday['dia']}/{holiday['mes']}",
-        'tipo_feriado': holiday['tipo'],
-        'recomendacion': p_titulo}
+        'motivo': (holiday['motivo']),
+        'titulo': p_titulo}
         )
+
+def normalize_genres():
+    special_characters ={
+      'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u',
+      'ñ': 'n', 'Ñ': 'N', 'ü': 'u', ' ': '-',
+      'à': 'a', 'è': 'e', 'ì': 'i', 'ò': 'o', 'ù': 'u',
+      'â': 'a', 'ê': 'e', 'î': 'i', 'ô': 'o', 'û': 'u',
+      'Ä': 'A', 'Ë': 'E', 'Ï': 'I', 'Ö': 'O', 'Ü': 'U',
+    }
+    temp = set()
+
+    # Agregamos todos los generos disponibles
+    for pelicula in peliculas:
+        temp.add(pelicula['genero'])
+
+    genre_map = {}
+
+    # Normalizamos los generos
+    for item in temp:
+        normalized_genre = item.translate(str.maketrans(special_characters))
+        genre_map[normalized_genre] = item
+
+    return genre_map
     
-
-
-
 app.add_url_rule('/peliculas', 'obtener_peliculas', obtener_peliculas, methods=['GET'])
 app.add_url_rule('/peliculas/<int:id>', 'obtener_pelicula', obtener_pelicula, methods=['GET'])
 app.add_url_rule('/peliculas/recomendacion/<string:genero>', 'feriado_recomendacion', feriado_recomendacion, methods=['GET'])
