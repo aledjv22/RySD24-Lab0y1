@@ -23,11 +23,13 @@ def obtener_peliculas():
     return jsonify(peliculas)
 
 def obtener_pelicula(id):
-    # Lógica para buscar la película por su ID y devolver sus detalles
-    # Considerando que todas las peliculas estan en orden con respecto a su ID 
-    p_titulo = peliculas[id-1].get("titulo")
-    p_gen = peliculas[id-1].get("genero")
-    pelicula_encontrada = (p_titulo, p_gen)
+    # Buscar la película por su ID
+    pelicula_encontrada = None
+    for pelicula in peliculas:
+        if pelicula['id'] == id:
+            pelicula_encontrada = pelicula
+            break
+
     return jsonify(pelicula_encontrada)
 
 
@@ -43,26 +45,29 @@ def agregar_pelicula():
 
 def actualizar_pelicula(id):
     # Lógica para buscar la película por su ID y actualizar sus detalles
-    # Se considera un nuevo bloque que "pise" el bloque anterior directamente en lugar de reemplazar los valores 
     pelicula_actualizada = {
         "id": id,
         "titulo": request.json["titulo"],
         "genero": request.json["genero"]
     }
-    peliculas[id] = pelicula_actualizada
+    # Genero una nueva lista omitiendo la pelicula con el id que quiero actualizar
+    peliculas_menos_id = [pelicula for pelicula in peliculas if pelicula['id'] != id]
+    # Agrego la pelicula actualizada a la lista nueva
+    peliculas_menos_id.append(pelicula_actualizada)
+    # Elimino la lista original y la reemplazo por la nueva
+    peliculas.clear()
+    peliculas.extend(peliculas_menos_id)
+
     return jsonify(pelicula_actualizada)
 
 
 def eliminar_pelicula(id):
-    # Lógica para buscar la película por su ID y eliminarla
-    # Considerando que al eliminar un bloque (de tipo diccionario) de la lista, no se modifican los demas elementos. Es decir, queda como un "hueco" con respecto a los IDs
-    # Por eso mismo no podemos usar simplemente la funcion de lista que elimina el elemento que queremos 
-    # (list.remove(x) // esta funcion cambiaria los IDs y por tanto, alteraria las otras funciones
-    peliculas[id] = {
-        "id": id,
-        "titulo": None,
-        "genero": None
-    }
+    # Genero una nueva lista omitiendo la pelicula con el id que quiero eliminar
+    peliculas_menos_id = [pelicula for pelicula in peliculas if pelicula['id'] != id]
+    # Elimino la lista original y la reemplazo por la nueva
+    peliculas.clear()
+    peliculas.extend(peliculas_menos_id)
+
     return jsonify({'mensaje': 'Película eliminada correctamente'})
 
 
