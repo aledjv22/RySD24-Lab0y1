@@ -58,7 +58,11 @@ def eliminar_pelicula(id):
     # Considerando que al eliminar un bloque (de tipo diccionario) de la lista, no se modifican los demas elementos. Es decir, queda como un "hueco" con respecto a los IDs
     # Por eso mismo no podemos usar simplemente la funcion de lista que elimina el elemento que queremos 
     # (list.remove(x) // esta funcion cambiaria los IDs y por tanto, alteraria las otras funciones
-    peliculas[id] = "Pelicula no encontrada"
+    peliculas[id] = {
+        "id": id,
+        "titulo": None,
+        "genero": None
+    }
     return jsonify({'mensaje': 'Película eliminada correctamente'})
 
 
