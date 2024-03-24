@@ -55,3 +55,15 @@ if response.status_code == 200:
     print("Película eliminada correctamente.")
 else:
     print("Error al eliminar la película.")
+
+# Obtener peliculas por un genero
+genero = 'Ciencia ficción'
+response = requests.get(f'http://localhost:5000/peliculas/genero/{genero}')
+if response.status_code == 200:
+    peliculas = response.json()
+    print("Películas por género:")
+    for pelicula in peliculas:
+        print(f"ID: {pelicula['id']}, Título: {pelicula['titulo']}, Género: {pelicula['genero']}")
+else:
+    print("Error al obtener las películas por género.")
+
