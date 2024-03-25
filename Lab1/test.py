@@ -67,3 +67,14 @@ if response.status_code == 200:
 else:
     print("Error al obtener las películas por género.")
 
+# Buscar peliculas por un titulo
+titulo = 'In'
+response = requests.get(f'http://localhost:5000/peliculas/buscar/{titulo}')
+if response.status_code == 200:
+    peliculas = response.json()
+    print("Películas por título:")
+    for pelicula in peliculas:
+        print(f"ID: {pelicula['id']}, Título: {pelicula['titulo']}, Género: {pelicula['genero']}")
+else:
+    print("Error al buscar las películas por título.")
+

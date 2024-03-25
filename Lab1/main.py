@@ -70,9 +70,18 @@ def eliminar_pelicula(id):
 
     return jsonify({'mensaje': 'Película eliminada correctamente'})
 
+
 def obtener_peliculas_por_genero(genero):
     # Filtrar la lista de películas por género
     peliculas_filtradas = [pelicula for pelicula in peliculas if pelicula['genero'] == genero]
+
+    return jsonify(peliculas_filtradas)
+
+
+def buscar_peliculas(titulo):
+    # Filtrar la lista de películas por título
+    peliculas_filtradas = [pelicula for pelicula in peliculas if titulo.lower() in pelicula['titulo'].lower()]
+
     return jsonify(peliculas_filtradas)
 
 
@@ -133,6 +142,7 @@ def normalize_genres():
 app.add_url_rule('/peliculas', 'obtener_peliculas', obtener_peliculas, methods=['GET'])
 app.add_url_rule('/peliculas/<int:id>', 'obtener_pelicula', obtener_pelicula, methods=['GET'])
 app.add_url_rule('/peliculas/genero/<string:genero>', 'obtener_peliculas_por_genero', obtener_peliculas_por_genero, methods=['GET'])
+app.add_url_rule('/peliculas/buscar/<string:titulo>', 'buscar_peliculas', buscar_peliculas, methods=['GET'])
 app.add_url_rule('/peliculas/recomendacion/<string:genero>', 'feriado_recomendacion', feriado_recomendacion, methods=['GET'])
 app.add_url_rule('/peliculas', 'agregar_pelicula', agregar_pelicula, methods=['POST'])
 app.add_url_rule('/peliculas/<int:id>', 'actualizar_pelicula', actualizar_pelicula, methods=['PUT'])
