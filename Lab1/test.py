@@ -52,9 +52,10 @@ print()
 id_pelicula = 1  # ID de la película a eliminar
 response = requests.delete(f'http://localhost:5000/peliculas/{id_pelicula}')
 if response.status_code == 200:
-    print("Película eliminada correctamente.")
+    print(f"Película ID: {id_pelicula} eliminada correctamente.")
 else:
     print("Error al eliminar la película.")
+print()
 
 # Obtener peliculas por un genero
 genero = 'Ciencia ficción'
@@ -66,6 +67,7 @@ if response.status_code == 200:
         print(f"ID: {pelicula['id']}, Título: {pelicula['titulo']}, Género: {pelicula['genero']}")
 else:
     print("Error al obtener las películas por género.")
+print()
 
 # Buscar peliculas por un titulo
 titulo = 'In'
@@ -77,4 +79,14 @@ if response.status_code == 200:
         print(f"ID: {pelicula['id']}, Título: {pelicula['titulo']}, Género: {pelicula['genero']}")
 else:
     print("Error al buscar las películas por título.")
+print()
 
+# Obtener una pelicula random sugerida
+response = requests.get('http://localhost:5000/peliculas/sugerir')
+if response.status_code == 200:
+    pelicula_sugerida = response.json()
+    print("Película sugerida:")
+    print(f"ID: {pelicula_sugerida['id']}, Título: {pelicula_sugerida['titulo']}, Género: {pelicula_sugerida['genero']}")
+else:
+    print("Error al obtener la película sugerida.")
+print()

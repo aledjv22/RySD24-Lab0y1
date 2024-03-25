@@ -85,6 +85,13 @@ def buscar_peliculas(titulo):
     return jsonify(peliculas_filtradas)
 
 
+def sugerir_pelicula():
+    # Seleccionar una película al azar de la lista de películas
+    pelicula_sugerida = random.choice(peliculas)
+
+    return jsonify(pelicula_sugerida)
+
+
 def obtener_nuevo_id():
     if len(peliculas) > 0:
         ultimo_id = peliculas[-1]['id']
@@ -143,6 +150,7 @@ app.add_url_rule('/peliculas', 'obtener_peliculas', obtener_peliculas, methods=[
 app.add_url_rule('/peliculas/<int:id>', 'obtener_pelicula', obtener_pelicula, methods=['GET'])
 app.add_url_rule('/peliculas/genero/<string:genero>', 'obtener_peliculas_por_genero', obtener_peliculas_por_genero, methods=['GET'])
 app.add_url_rule('/peliculas/buscar/<string:titulo>', 'buscar_peliculas', buscar_peliculas, methods=['GET'])
+app.add_url_rule('/peliculas/sugerir', 'sugerir_pelicula', sugerir_pelicula, methods=['GET'])
 app.add_url_rule('/peliculas/recomendacion/<string:genero>', 'feriado_recomendacion', feriado_recomendacion, methods=['GET'])
 app.add_url_rule('/peliculas', 'agregar_pelicula', agregar_pelicula, methods=['POST'])
 app.add_url_rule('/peliculas/<int:id>', 'actualizar_pelicula', actualizar_pelicula, methods=['PUT'])
