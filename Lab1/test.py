@@ -90,3 +90,14 @@ if response.status_code == 200:
 else:
     print("Error al obtener la película sugerida.")
 print()
+
+# Obtener una pelicula random sugerida por genero
+genero = 'Acción'
+response = requests.get(f'http://localhost:5000/peliculas/sugerir/{genero}')
+if response.status_code == 200:
+    pelicula_sugerida = response.json()
+    print(f"Película sugerida de género {genero}:")
+    print(f"ID: {pelicula_sugerida['id']}, Título: {pelicula_sugerida['titulo']}, Género: {pelicula_sugerida['genero']}")
+else:
+    print("Error al obtener la película sugerida por género.")
+print()
