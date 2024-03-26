@@ -111,28 +111,26 @@ def obtener_nuevo_id():
 def feriado_recomendacion(genero):
     # Obtenemos proximo feriado
     next_holiday = NextHoliday()
-    next_holiday.fetch_holidays(holiday_type=None)
-    holiday = next_holiday.ret_date()
-    #map = {
-    #    "Ciencia-ficcion": "Ciencia ficción",
-    #    "Accion": "Acción",
-    #    "Fantasia": "Fantasía",
-    #}
-    # llamamos funcion para normalizar los nombres de los generos (debido a la url)
-    map = normalize_genres()
-    # obtenemos el genero particular que seleccionamos
-    genero = map.get(genero, genero)
+    next_holiday.fetch_holidays()
+
+    # Siguiente si se quiere utilizar Curl correctamente, ademas descomentar normalize_genres()
+    """ llamamos funcion para normalizar los nombres de los generos (debido a la url)
+     map = normalize_genres()
+
+     obtenemos el genero particular que seleccionamos
+     genero = map.get(genero, genero)"""
+
     # obtenemos la pelicula con el genero seleccionado
     p_titulos = [pelicula.get("titulo") for pelicula in peliculas if pelicula.get("genero") == genero]
     # seleccionamos una pelicula randomizada de entre todas con el genero seleccionado
     p_titulo = random.choice(p_titulos)
     return jsonify({
-        'prox_feriado': f"{holiday['dia']}/{holiday['mes']}",
-        'motivo': (holiday['motivo']),
+        'prox_feriado': f"{next_holiday.holiday['dia']}/{next_holiday.holiday['mes']}",
+        'motivo': (next_holiday.holiday['motivo']),
         'titulo': p_titulo}
         )
 
-def normalize_genres():
+"""def normalize_genres():
     special_characters ={
       'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u',
       'ñ': 'n', 'Ñ': 'N', 'ü': 'u', ' ': '-',
@@ -153,7 +151,8 @@ def normalize_genres():
         normalized_genre = item.translate(str.maketrans(special_characters))
         genre_map[normalized_genre] = item
 
-    return genre_map
+    return genre_map"""
+
 
 
 app.add_url_rule('/peliculas', 'obtener_peliculas', obtener_peliculas, methods=['GET'])

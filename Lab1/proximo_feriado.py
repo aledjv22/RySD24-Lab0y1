@@ -16,7 +16,7 @@ class NextHoliday:
         self.year = date.today().year
         self.holiday = None
 
-    def set_next(self, holidays, holiday_type):
+    def set_next(self, holidays, holiday_type=None):
         now = date.today()
         today = {
             'day': now.day,
@@ -36,7 +36,7 @@ class NextHoliday:
         self.loading = False
         self.holiday = holiday
 
-    def fetch_holidays(self, holiday_type):
+    def fetch_holidays(self, holiday_type=None):
         response = requests.get(get_url(self.year))
         data = response.json()
         self.set_next(data, holiday_type)
@@ -56,10 +56,6 @@ class NextHoliday:
             print("Tipo:")
             print(self.holiday['tipo'])
 
-    def ret_date(self):
-        return self.holiday
-
-# (Es algo que habia puesto los profes)
-#next_holiday = NextHoliday()
-#next_holiday.fetch_holidays(type=None)
-#next_holiday.render()
+next_holiday = NextHoliday()
+next_holiday.fetch_holidays()
+next_holiday.render()
