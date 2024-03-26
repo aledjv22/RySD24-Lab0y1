@@ -58,7 +58,7 @@ else:
 print()
 
 # Obtener peliculas por un genero
-genero = 'Ciencia ficción'
+genero = 'ciencia_ficcion'
 response = requests.get(f'http://localhost:5000/peliculas/genero/{genero}')
 if response.status_code == 200:
     peliculas = response.json()
@@ -92,7 +92,7 @@ else:
 print()
 
 # Obtener una pelicula random sugerida por genero
-genero = 'Acción'
+genero = 'accion'
 response = requests.get(f'http://localhost:5000/peliculas/sugerir/{genero}')
 if response.status_code == 200:
     pelicula_sugerida = response.json()
