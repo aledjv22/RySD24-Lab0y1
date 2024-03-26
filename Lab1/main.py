@@ -31,8 +31,11 @@ def obtener_pelicula(id):
         if pelicula['id'] == id:
             pelicula_encontrada = pelicula
             break
-
-    return jsonify(pelicula_encontrada)
+    # Si no se encontró la película, devolver un mensaje
+    if (pelicula_encontrada is None):
+        return jsonify({'mensaje': 'Pelicula no encontrada.'}), 404
+    # Si se encontró la película, devolver sus detalles y el código de estado 200 (OK)
+    return jsonify(pelicula_encontrada), 200
 
 
 # Normalizar el texto de entrada
@@ -51,9 +54,11 @@ def agregar_pelicula():
         'titulo': request.json['titulo'],
         'genero': request.json['genero']
     }
+    # Validar que se hayan ingresado los datos de la película
+    if nueva_pelicula['titulo'] == "" or nueva_pelicula['genero'] == "":
+        return jsonify({'mensaje': 'Faltan datos de la película'}), 400
     peliculas.append(nueva_pelicula)
-    print(peliculas)
-
+    # Devolver los detalles de la nueva película y el código de estado 201 (creado)
     return jsonify(nueva_pelicula), 201
 
 
@@ -64,6 +69,9 @@ def actualizar_pelicula(id):
         "titulo": request.json["titulo"],
         "genero": request.json["genero"]
     }
+    # Validar que se hayan ingresado los datos de la película
+    if pelicula_actualizada['titulo'] == "" or pelicula_actualizada['genero'] == "":
+        return jsonify({'mensaje': 'Faltan datos de la película'}), 400
     # Nueva lista de películas sin la película que quiero actualizar
     peliculas_menos_id = [pelicula for pelicula in peliculas if pelicula['id'] != id]
     # Se incluye la película actualizada en la nueva lista
@@ -71,19 +79,22 @@ def actualizar_pelicula(id):
     # Se reemplaza la lista original por la nueva
     peliculas.clear()
     peliculas.extend(peliculas_menos_id)
-
-    return jsonify(pelicula_actualizada)
+    # Devolver los detalles de la película actualizada y el código de estado 200 (OK)
+    return jsonify(pelicula_actualizada), 200
 
 
 # Lógica para buscar la película por su ID y eliminarla
 def eliminar_pelicula(id):
+    # Validar que la película exista
+    if not any(pelicula['id'] == id for pelicula in peliculas):
+        return jsonify({'mensaje': 'Pelicula no encontrada.'}), 404
     # Nueva lista de películas sin la película que quiero eliminar
     peliculas_menos_id = [pelicula for pelicula in peliculas if pelicula['id'] != id]
     # Se reemplaza la lista original por la nueva
     peliculas.clear()
     peliculas.extend(peliculas_menos_id)
-
-    return jsonify({'mensaje': 'Película eliminada correctamente'})
+    # Devolver un mensaje de confirmación de eliminación de la película y el código de estado 200 (OK)
+    return jsonify({'mensaje': 'Película eliminada correctamente'}), 200
 
 
 # Lógica para obtener las películas por género
