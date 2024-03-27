@@ -34,6 +34,10 @@ def normalize_input(input_string):
 
     return input_string
 
+# Validar que el texto de entrada sea alfabético o un guion bajo
+def is_alpha_or_underscore(s):
+    return all(c.isalpha() or c == '_' for c in s)
+
 
 # Lógica para agregar una nueva película
 def agregar_pelicula():
@@ -88,7 +92,7 @@ def eliminar_pelicula(id):
 # Lógica para obtener las películas por género
 def obtener_peliculas_por_genero(genero):
     # Validar que se haya ingresado el género de la película correcto
-    if genero == "" or not genero.isalpha() or genero.isspace():
+    if genero == "" or not is_alpha_or_underscore(genero) or genero.isspace():
         return jsonify({'mensaje': 'El género de la película debe ser una palabra sin espacios ni números.'}), 400
     # Normalizar el género de entrada
     genero = normalize_input(genero)
@@ -101,7 +105,7 @@ def obtener_peliculas_por_genero(genero):
 # Lógica para buscar películas por título
 def buscar_peliculas(titulo):
     # Validar que se haya ingresado el título de la película correcto
-    if titulo == "" or not titulo.isalpha() or titulo.isspace():
+    if titulo == "" or not is_alpha_or_underscore(titulo) or titulo.isspace():
         return jsonify({'mensaje': 'El título de la película debe ser una palabra sin espacios ni números.'}), 400
     # Normalizar el título de entrada
     titulo = normalize_input(titulo)
@@ -125,7 +129,7 @@ def sugerir_pelicula():
 # Lógica para sugerir una película al azar por género
 def sugerir_pelicula_por_genero(genero):
     # Validar que se haya ingresado el género de la película correcto
-    if genero == "" or genero.isspace() or not genero.isalpha():
+    if genero == "" or genero.isspace() or not is_alpha_or_underscore(genero):
         return jsonify({'mensaje': 'Falta el género de la película.'}), 400
     # Normalizar el género de entrada
     genero = normalize_input(genero)
@@ -148,9 +152,8 @@ def obtener_nuevo_id():
 
 # Lógica para obtener una recomendación de película para el próximo feriado
 def feriado_recomendacion(genero):
-    print(f"El genero es: {genero}")
     # Validar que se haya ingresado el género de la película correcto
-    if genero == "" or genero.isspace() or not genero.isalpha():
+    if genero == "" or genero.isspace() or not is_alpha_or_underscore(genero):
         return jsonify({'mensaje': 'Falta el género de la película.'}), 400
     # Obtenemos el próximo feriado
     next_holiday = NextHoliday()
