@@ -102,7 +102,7 @@ def get_test():
   print("-----------------------------------------------------")
   print("Buscar películas por título. [200]")
   print("-----------------------------------------------------")
-  titulos = ['In', 'La', 'El', 'Los']  # Lista de títulos de películas a buscar
+  titulos = ['In', 'La', 'El', 'The']  # Lista de títulos de películas a buscar
   for titulo in titulos:
     response = requests.get(f'http://localhost:5000/peliculas/buscar/{titulo}')
     if response.status_code == 200:
