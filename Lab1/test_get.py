@@ -1,12 +1,11 @@
 import requests
 
 def get_test():
-  print("-------------------------------------")
+  print("=====================================")
   print("Inicio de las pruebas del método GET.")
-  print("-------------------------------------")
+  print("=====================================")
 
   # Obtener todas las películas
-  print()
   print("------------------------------------------------------")
   print("Obtener todas las películas. Respuesta correcta [200].")
   print("------------------------------------------------------")
@@ -19,13 +18,12 @@ def get_test():
   elif response.status_code == 404:
       print("No hay películas registradas.")
   else:
-      print("Error al obtener las películas.")
+      print(f"Error al obtener las películas. Código de estado: {response.status_code}")
   print()
 
 
   # Obtener detalles de una película específica
   ## Respuesta correcta  (200)
-  print()
   print("----------------------------------------------------------------------")
   print("Obtener detalles de una película específica. Respuesta correcta [200].")
   print("----------------------------------------------------------------------")
@@ -43,7 +41,6 @@ def get_test():
     print()
 
   ## Respuesta incorrecta (404)
-  print()
   print("------------------------------------------------------------------------")
   print("Obtener detalles de una película específica. Respuesta incorrecta [404].")
   print("------------------------------------------------------------------------")
@@ -51,12 +48,14 @@ def get_test():
   for id_pelicula in id_peliculas:
     response = requests.get(f'http://localhost:5000/peliculas/{id_pelicula}')
     if response.status_code == 404:
-        print(f"Error captado de forma correcta, {id_pelicula} no es un id correcto. ")
-    else:
-        print(f"ERROR, si se obtuvo una respuesta diferente a 404, se obtuvo {response.status_code}")
+        print(f"Error captado de forma correcta, {id_pelicula} no es un ID correcto. ")
+    elif response.status_code == 200:
+        print(f"ERROR GRAVE, se obtuvo una respuesta de 200 en lugar de 404.")
         pelicula = response.json()
         print("Detalles de la película:")
         print(f"ID: {pelicula['id']}, Título: {pelicula['titulo']}, Género: {pelicula['genero']}")
+    else:
+        print(f"ERROR, si se obtuvo una respuesta diferente a 404, se obtuvo {response.status_code}")
     print()
 
 
@@ -81,7 +80,6 @@ def get_test():
     print()
 
   ## Respuesta incorrecta (400)
-  print()
   print("---------------------------------------------------------")
   print("Obtener películas por género. Respuesta incorrecta [400].")
   print("---------------------------------------------------------")
@@ -90,12 +88,14 @@ def get_test():
     response = requests.get(f'http://localhost:5000/peliculas/genero/{genero}')
     if response.status_code == 400:
         print(f"Error captado de forma correcta, no hay películas de género {genero}.")
-    else:
-        print(f"ERROR, si se obtuvo una respuesta diferente a 400, se obtuvo {response.status_code}")
+    elif response.status_code == 200:
+        print(f"ERROR GRAVE, se obtuvo una respuesta de 200 en lugar de 400.")
         peliculas = response.json()
         print(f"Películas por género {genero}:")
         for pelicula in peliculas:
           print(f"ID: {pelicula['id']}, Título: {pelicula['titulo']}, Género: {pelicula['genero']}")
+    else:
+        print(f"ERROR, si se obtuvo una respuesta diferente a 400, se obtuvo {response.status_code}")
     print()
 
 
@@ -105,7 +105,7 @@ def get_test():
   print("------------------------------------------------------")
   print("Buscar películas por título. Respuesta correcta [200].")
   print("------------------------------------------------------")
-  titulos = ['In', 'La', 'El', 'Los']  # Lista de títulos de películas a buscar
+  titulos = ['Max', 'the', 'club', 'to']  # Lista de títulos de películas a buscar
   for titulo in titulos:
     response = requests.get(f'http://localhost:5000/peliculas/buscar/{titulo}')
     if response.status_code == 200:
@@ -120,7 +120,6 @@ def get_test():
     print()
 
   ## Respuesta incorrecta (400)
-  print()
   print("--------------------------------------------------------")
   print("Buscar películas por título. Respuesta incorrecta [400].")
   print("--------------------------------------------------------")
@@ -129,12 +128,14 @@ def get_test():
     response = requests.get(f'http://localhost:5000/peliculas/buscar/{titulo}')
     if response.status_code == 400:
         print(f"Error captado de forma correcta, no hay películas con título {titulo}.")
-    else:
-        print(f"ERROR, si se obtuvo una respuesta diferente a 400, se obtuvo {response.status_code}")
+    elif response.status_code == 200:
+        print(f"ERROR GRAVE, se obtuvo una respuesta de 200 en lugar de 400.")
         peliculas = response.json()
         print(f"Películas por título {titulo}:")
         for pelicula in peliculas:
           print(f"ID: {pelicula['id']}, Título: {pelicula['titulo']}, Género: {pelicula['genero']}")
+    else:
+        print(f"ERROR, si se obtuvo una respuesta diferente a 400, se obtuvo {response.status_code}")
     print()
 
   # Obtener una pelicula random sugerida
@@ -171,11 +172,10 @@ def get_test():
     elif response.status_code == 404:
       print(f"No hay películas de género {genero} para sugerir.")
     else:
-      print("Error al obtener la película sugerida por género.")
+      print("Error al obtener la película sugerida.")
     print()
 
   ## Respuesta incorrecta (400)
-  print()
   print("-----------------------------------------------------------------------------")
   print("Obtener una película sugerida al azar por género. Respuesta incorrecta [400].")
   print("-----------------------------------------------------------------------------")
@@ -184,11 +184,13 @@ def get_test():
     response = requests.get(f'http://localhost:5000/peliculas/sugerir/{genero}')
     if response.status_code == 400:
         print(f"Error captado de forma correcta, no hay películas de género {genero} para sugerir.")
-    else:
-        print(f"ERROR, si se obtuvo una respuesta diferente a 400, se obtuvo {response.status_code}")
+    elif response.status_code == 200:
+        print(f"ERROR GRAVE, se obtuvo una respuesta de 200 en lugar de 400.")
         pelicula_sugerida = response.json()
         print(f"Película sugerida de género {genero}:")
         print(f"ID: {pelicula_sugerida['id']}, Título: {pelicula_sugerida['titulo']}, Género: {pelicula_sugerida['genero']}")
+    else:
+        print(f"ERROR, si se obtuvo una respuesta diferente a 400, se obtuvo {response.status_code}")
     print()
 
 
@@ -211,11 +213,10 @@ def get_test():
     elif response.status_code == 404:
       print(f"No hay películas de género {genero} para sugerir.")
     else:
-      print("Error al obtener la recomendación de película por género.")
+      print("Error al obtener la película sugerida.")
     print()
 
   ## Respuesta incorrecta (400)
-  print()
   print("---------------------------------------------------")
   print("Película al azar por el género indicando mostrando")
   print("el próximo feriado. Respuesta incorrecta [400].")
@@ -225,16 +226,18 @@ def get_test():
     response = requests.get(f'http://localhost:5000/peliculas/recomendacion/{genero}')
     if response.status_code == 400:
         print(f"Error captado de forma correcta, no hay películas de género {genero} para sugerir.")
-    else:
-        print(f"ERROR, si se obtuvo una respuesta diferente a 400, se obtuvo {response.status_code}")
+    elif response.status_code == 200:
+        print(f"ERROR GRAVE, se obtuvo una respuesta de 200 en lugar de 400.")
         recomendacion = response.json()
         print(f"Recomendación de película de género {genero}:")
         print(f"Próximo feriado: {recomendacion['prox_feriado']}")
         print(f"Motivo del feriado: {recomendacion['motivo']}")
         print(f"Película recomendada: {recomendacion['titulo']}")
+    else:
+        print(f"ERROR, si se obtuvo una respuesta diferente a 400, se obtuvo {response.status_code}")
     print()
 
-  print("-----------------------------------------------------")
+  print("==================================")
   print("Fin de las pruebas del método GET.")
-  print("-----------------------------------------------------")
+  print("==================================")
   print()
