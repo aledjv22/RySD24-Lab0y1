@@ -148,6 +148,7 @@ def obtener_nuevo_id():
 
 # Lógica para obtener una recomendación de película para el próximo feriado
 def feriado_recomendacion(genero):
+    print(f"El genero es: {genero}")
     # Validar que se haya ingresado el género de la película correcto
     if genero == "" or genero.isspace() or not genero.isalpha():
         return jsonify({'mensaje': 'Falta el género de la película.'}), 400
@@ -155,14 +156,14 @@ def feriado_recomendacion(genero):
     next_holiday = NextHoliday()
     next_holiday.fetch_holidays()
     # obtenemos la pelicula con el genero seleccionado
-    p_titulos = [pelicula.get("titulo") for pelicula in peliculas if pelicula.get("genero") == genero]
+    peliculas_filtradas = [pelicula for pelicula in peliculas if genero == normalize_input(pelicula['genero'])]
     # seleccionamos una pelicula randomizada de entre todas con el genero seleccionado
-    p_titulo = random.choice(p_titulos)
+    pelicula_sugerida = random.choice(peliculas_filtradas)['titulo']
     # Devolver los detalles de la película recomendada y el código de estado 200 (OK)
     return jsonify({
         'prox_feriado': f"{next_holiday.holiday['dia']}/{next_holiday.holiday['mes']}",
         'motivo': (next_holiday.holiday['motivo']),
-        'titulo': p_titulo}), 200
+        'titulo': pelicula_sugerida}), 200
 
 
 # Rutas de la API
