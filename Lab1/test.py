@@ -1,20 +1,3 @@
-# import requests
-
-# # Agregar una nueva película
-# nueva_pelicula = {
-#     'titulo': 'Pelicula de prueba',
-#     'genero': 'Acción'
-# }
-# response = requests.post('http://localhost:5000/peliculas', json=nueva_pelicula)
-# if response.status_code == 201:
-#     pelicula_agregada = response.json()
-#     print("Película agregada:")
-#     print(f"ID: {pelicula_agregada['id']}, Título: {pelicula_agregada['titulo']}, Género: {pelicula_agregada['genero']}")
-# else:
-#     print("Error al agregar la película.")
-# print()
-
-
 # # Actualizar los detalles de una película
 # id_pelicula = 1  # ID de la película a actualizar
 # datos_actualizados = {
@@ -39,5 +22,8 @@
 #     print("Error al eliminar la película.")
 # print()
 
-from test_get import *
+from test_get import get_test
+from test_post import post_test
+
 get_test()
+post_test()

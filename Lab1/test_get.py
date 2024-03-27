@@ -1,9 +1,9 @@
 import requests
 
 def get_test():
-  print("-----------------------------------------------------")
+  print("-------------------------------------")
   print("Inicio de las pruebas del método GET.")
-  print("-----------------------------------------------------")
+  print("-------------------------------------")
 
   # Obtener todas las películas
   print()
