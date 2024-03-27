@@ -74,35 +74,38 @@ Obviamente no tienen que entregar este texto, el ejemplo es solo de comportamien
 3. Replicar los test en [postman](https://www.postman.com/), sugerencia, para testear en local usen la versión desktop
 
 ## **Entrega**
-Junto con el código deberá entregar una presentación (tipo powerpoint) y un video  de 10 minutos les damos una estructura de base como idea, pero pueden modificarla/ ampliarla.
+Junto con el código deberá entregar una presentación (tipo powerpoint) y un video  de 10 +/-1 minutos. Les damos una estructura de base como idea, pero pueden modificarla/ ampliarla.
 
 1. **Introducción al proyecto:**
     1. Presenta brevemente el contexto del proyecto y sus objetivos.
-    2. Explica la importancia de desarrollar una API robusta y bien diseñada.
+    2. Explicar que es una API REST y cómo funciona.
+    3. Explica la importancia de desarrollar una API robusta y bien diseñada.
 2. **Configuración del entorno e instalación de librerías:**
     1. Explica por qué es importante utilizar un entorno virtual de programación.
     2. Muestra cómo configurar un entorno virtual de Python usando venv.
     3. Explica cómo activar y desactivar el entorno virtual.
     4. Guía sobre la instalación de las librerías necesarias utilizando pip.
 3. **Creación de una API con Flask:**
-    1. Describe las funcionalidades básicas de la API a desarrollar.
-    2. Muestra cómo completaron las funcionalidades proporcionadas en el archivo main.py.
-    3. Explica cada una de las partes de la API y su propósito.
+    1. Describir funcionamiento de la api proporcionada y como funciona FLASK.
+    2. Describe las funcionalidades básicas de la API a desarrollar.
+    3. Muestra cómo completaron las funcionalidades proporcionadas en el archivo main.py.
+    4. Explica cada una de las partes de la API y su propósito.
 4. **Pruebas de la API:**
     1. Presenta las recomendaciones para probar la API utilizando curl o Postman.
-    2. Explica cómo realizar pruebas con curl.
-    3. Muestra cómo realizar pruebas con Postman y replica los mismos tests que se realizan con curl.
+    2. Presentar que es curl y explica cómo realizar pruebas con curl.
+    3. Presentar que es postman y muestra cómo realizar pruebas con Postman y replica los mismos tests que se realizan con curl. No es necesario verificar el error sino solo replicar las request.
 5. **Consumo de una API externa:**
     1. Introduce la integración con la API externa de feriados.
     2. Explica cómo modificar el código existente para agregar funcionalidades relacionadas con los feriados.
     3. Demuestra cómo utilizar la API de feriados para obtener información y recomendar películas.
 6. **Evaluación de la API:**
     1. Explica la importancia de la evaluación de la API.
-    2. Presenta el archivo test.py o test_pytest.py y muestra cómo agregar tests para las nuevas funcionalidades.
+    2. Presenta el archivo test.py o test_pytest.py y muestra cómo agregar tests para las nuevas funcionalidades. (explicar para que sirve pytest y los mocs)
     3. Reproduce los mismos tests en Postman para verificar la funcionalidad desde el punto de vista del cliente.
 7. **Conclusiones y próximos pasos:**
     1. Resalta los resultados de la evaluación de la API.
     2. Propone posibles mejoras o ampliaciones para la API.
-    3. Concluye el video resumiendo los principales puntos y agradeciendo por la atención.
+    3. Mejoras hechas.
+    4. Concluye el video resumiendo los principales puntos y agradeciendo por la atención.
 
 ¡Buena suerte con el laboratorio!
