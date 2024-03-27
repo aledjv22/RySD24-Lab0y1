@@ -87,9 +87,9 @@ def eliminar_pelicula(id):
 
 # Lógica para obtener las películas por género
 def obtener_peliculas_por_genero(genero):
-    # Validar que se haya ingresado el género de la película
-    if genero == "":
-        return jsonify({'mensaje': 'Falta el género de la película.'}), 400
+    # Validar que se haya ingresado el género de la película correcto
+    if genero == "" or not genero.isalpha() or genero.isspace():
+        return jsonify({'mensaje': 'El género de la película debe ser una palabra sin espacios ni números.'}), 400
     # Normalizar el género de entrada
     genero = normalize_input(genero)
     # Filtrado de la lista de películas por género
@@ -100,9 +100,9 @@ def obtener_peliculas_por_genero(genero):
 
 # Lógica para buscar películas por título
 def buscar_peliculas(titulo):
-    # Validar que se haya ingresado el título de la película
-    if titulo == "":
-        return jsonify({'mensaje': 'Falta el título de la película.'}), 400
+    # Validar que se haya ingresado el título de la película correcto
+    if titulo == "" or not titulo.isalpha() or titulo.isspace():
+        return jsonify({'mensaje': 'El título de la película debe ser una palabra sin espacios ni números.'}), 400
     # Normalizar el título de entrada
     titulo = normalize_input(titulo)
     # Filtrado de la lista de películas por título
@@ -124,8 +124,8 @@ def sugerir_pelicula():
 
 # Lógica para sugerir una película al azar por género
 def sugerir_pelicula_por_genero(genero):
-    # Validar que se haya ingresado el género de la película
-    if genero == "":
+    # Validar que se haya ingresado el género de la película correcto
+    if genero == "" or genero.isspace() or not genero.isalpha():
         return jsonify({'mensaje': 'Falta el género de la película.'}), 400
     # Normalizar el género de entrada
     genero = normalize_input(genero)
@@ -148,8 +148,8 @@ def obtener_nuevo_id():
 
 # Lógica para obtener una recomendación de película para el próximo feriado
 def feriado_recomendacion(genero):
-    # Validar que se haya ingresado el género de la película
-    if genero == "":
+    # Validar que se haya ingresado el género de la película correcto
+    if genero == "" or genero.isspace() or not genero.isalpha():
         return jsonify({'mensaje': 'Falta el género de la película.'}), 400
     # Obtenemos el próximo feriado
     next_holiday = NextHoliday()
