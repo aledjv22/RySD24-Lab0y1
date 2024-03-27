@@ -14,9 +14,6 @@ def obtener_peliculas():
 
 # Buscar la película por su ID
 def obtener_pelicula(id):
-    # Validar que el ID de la película sea un número entero positivo
-    if (id < 1 or type(id) != int):
-        return jsonify({'mensaje': 'El ID de la película debe ser un número entero positivo.'}), 400
     pelicula_encontrada = None
     for pelicula in peliculas:
         if pelicula['id'] == id:
@@ -59,9 +56,9 @@ def agregar_pelicula():
 
 # Lógica para buscar la película por su ID y actualizar sus detalles
 def actualizar_pelicula(id):
-    # Validar que el ID de la película sea un número entero positivo
-    if (id < 1 or type(id) != int):
-        return jsonify({'mensaje': 'El ID de la película debe ser un número entero positivo.'}), 400
+    # Validar que la película exista
+    if not any(pelicula['id'] == id for pelicula in peliculas):
+        return jsonify({'mensaje': 'Pelicula no encontrada.'}), 404
     pelicula_actualizada = {
         "id": id,
         "titulo": request.json["titulo"],
@@ -83,9 +80,6 @@ def actualizar_pelicula(id):
 
 # Lógica para buscar la película por su ID y eliminarla
 def eliminar_pelicula(id):
-    # Validar que el ID de la película sea un número entero positivo
-    if (id < 1 or type(id) != int):
-        return jsonify({'mensaje': 'El ID de la película debe ser un número entero positivo.'}), 400
     # Validar que la película exista
     if not any(pelicula['id'] == id for pelicula in peliculas):
         return jsonify({'mensaje': 'Pelicula no encontrada.'}), 404
