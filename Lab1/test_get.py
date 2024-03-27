@@ -182,3 +182,48 @@ for genero in generos:
       print(f"ID: {pelicula_sugerida['id']}, Título: {pelicula_sugerida['titulo']}, Género: {pelicula_sugerida['genero']}")
   print()
 
+
+# Obtener una pelicula random sugerida por genero indicando el proximo feriado
+## Respuesta correcta  (200)
+print()
+print("-----------------------------------------------------")
+print("Obtener una peli al azar por el género indicando el prox. feriado. [200]")
+print("-----------------------------------------------------")
+generos = ['accion', 'comedia', 'drama', 'terror']  # Lista de géneros de películas a sugerir
+for genero in generos:
+  response = requests.get(f'http://localhost:5000/peliculas/recomendacion/{genero}')
+  if response.status_code == 200:
+    recomendacion = response.json()
+    print(f"Recomendación de película de género {genero}:")
+    print(f"Próximo feriado: {recomendacion['prox_feriado']}")
+    print(f"Motivo del feriado: {recomendacion['motivo']}")
+    print(f"Película recomendada: {recomendacion['titulo']}")
+  elif response.status_code == 404:
+    print(f"No hay películas de género {genero} para sugerir.")
+  else:
+    print("Error al obtener la recomendación de película por género.")
+  print()
+
+## Respuesta incorrecta (400)
+print()
+print("-----------------------------------------------------")
+print("Obtener una peli al azar por el género indicando el prox. feriado. [400]")
+print("-----------------------------------------------------")
+generos = [233213, 'pepe pepa', 'ale diaz', -5]  # Lista de géneros de películas a sugerir
+for genero in generos:
+  response = requests.get(f'http://localhost:5000/peliculas/recomendacion/{genero}')
+  if response.status_code == 400:
+      print(f"Error captado de forma correcta, no hay películas de género {genero} para sugerir.")
+  else:
+      print(f"ERROR, si se obtuvo una respuesta diferente a 400, se obtuvo {response.status_code}")
+      recomendacion = response.json()
+      print(f"Recomendación de película de género {genero}:")
+      print(f"Próximo feriado: {recomendacion['prox_feriado']}")
+      print(f"Motivo del feriado: {recomendacion['motivo']}")
+      print(f"Película recomendada: {recomendacion['titulo']}")
+  print()
+
+print("-----------------------------------------------------")
+print("Fin de las pruebas del método GET.")
+print("-----------------------------------------------------")
+print()
