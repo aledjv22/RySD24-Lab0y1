@@ -24,6 +24,8 @@
 
 from test_get import get_test
 from test_post import post_test
+from test_delete import delete_test
 
 get_test()
 post_test()
+delete_test()
