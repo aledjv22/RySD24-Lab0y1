@@ -12,17 +12,17 @@ def obtener_peliculas():
     return jsonify(peliculas)
 
 
-# Buscar la película por su ID
+# Buscar la pelicula por su ID
 def obtener_pelicula(id):
     pelicula_encontrada = None
     for pelicula in peliculas:
         if pelicula['id'] == id:
             pelicula_encontrada = pelicula
             break
-    # Si no se encontró la película, devolver un mensaje
+    # Si no se encontró la pelicula, devolver un mensaje
     if (pelicula_encontrada is None):
         return jsonify({'mensaje': 'Pelicula no encontrada.'}), 404
-    # Si se encontró la película, devolver sus detalles y el código de estado 200 (OK)
+    # Si se encontró la pelicula, devolver sus detalles y el código de estado 200 (OK)
     return jsonify(pelicula_encontrada), 200
 
 
@@ -34,29 +34,29 @@ def normalize_input(input_string):
 
     return input_string
 
-# Validar que el texto de entrada sea alfabético o un guion bajo
+# Validar que el texto de entrada sea alfabetico o un guion bajo
 def is_alpha_or_underscore(s):
     return all(c.isalpha() or c == '_' for c in s)
 
 
-# Lógica para agregar una nueva película
+# Lógica para agregar una nueva pelicula
 def agregar_pelicula():
     nueva_pelicula = {
         'id': obtener_nuevo_id(),
         'titulo': request.json['titulo'],
         'genero': request.json['genero']
     }
-    # Validar que se hayan ingresado los datos de la película
+    # Validar que se hayan ingresado los datos de la pelicula
     if nueva_pelicula['titulo'] == "" or nueva_pelicula['genero'] == "":
-        return jsonify({'mensaje': 'Faltan datos de la película'}), 400
+        return jsonify({'mensaje': 'Faltan datos de la pelicula'}), 400
     peliculas.append(nueva_pelicula)
-    # Devolver los detalles de la nueva película y el código de estado 201 (creado)
+    # Devolver los detalles de la nueva pelicula y el código de estado 201 (creado)
     return jsonify(nueva_pelicula), 201
 
 
-# Lógica para buscar la película por su ID y actualizar sus detalles
+# Lógica para buscar la pelicula por su ID y actualizar sus detalles
 def actualizar_pelicula(id):
-    # Validar que la película exista
+    # Validar que la pelicula exista
     if not any(pelicula['id'] == id for pelicula in peliculas):
         return jsonify({'mensaje': 'Pelicula no encontrada.'}), 404
     pelicula_actualizada = {
@@ -64,84 +64,84 @@ def actualizar_pelicula(id):
         "titulo": request.json["titulo"],
         "genero": request.json["genero"]
     }
-    # Validar que se hayan ingresado los datos de la película
+    # Validar que se hayan ingresado los datos de la pelicula
     if pelicula_actualizada['titulo'] == "" or pelicula_actualizada['genero'] == "":
-        return jsonify({'mensaje': 'Faltan datos de la película'}), 400
-    # Nueva lista de películas sin la película que quiero actualizar
+        return jsonify({'mensaje': 'Faltan datos de la pelicula'}), 400
+    # Nueva lista de peliculas sin la pelicula que quiero actualizar
     peliculas_menos_id = [pelicula for pelicula in peliculas if pelicula['id'] != id]
-    # Se incluye la película actualizada en la nueva lista
+    # Se incluye la pelicula actualizada en la nueva lista
     peliculas_menos_id.append(pelicula_actualizada)
     # Se reemplaza la lista original por la nueva
     peliculas.clear()
     peliculas.extend(peliculas_menos_id)
-    # Devolver los detalles de la película actualizada y el código de estado 200 (OK)
+    # Devolver los detalles de la pelicula actualizada y el código de estado 200 (OK)
     return jsonify(pelicula_actualizada), 200
 
 
-# Lógica para buscar la película por su ID y eliminarla
+# Lógica para buscar la pelicula por su ID y eliminarla
 def eliminar_pelicula(id):
-    # Validar que la película exista
+    # Validar que la pelicula exista
     if not any(pelicula['id'] == id for pelicula in peliculas):
         return jsonify({'mensaje': 'Pelicula no encontrada.'}), 404
-    # Nueva lista de películas sin la película que quiero eliminar
+    # Nueva lista de peliculas sin la pelicula que quiero eliminar
     peliculas_menos_id = [pelicula for pelicula in peliculas if pelicula['id'] != id]
     # Se reemplaza la lista original por la nueva
     peliculas.clear()
     peliculas.extend(peliculas_menos_id)
-    # Devolver un mensaje de confirmación de eliminación de la película y el código de estado 200 (OK)
-    return jsonify({'mensaje': 'Película eliminada correctamente'}), 200
+    # Devolver un mensaje de confirmación de eliminación de la pelicula y el código de estado 200 (OK)
+    return jsonify({'mensaje': 'Pelicula eliminada correctamente'}), 200
 
 
-# Lógica para obtener las películas por género
+# Lógica para obtener las peliculas por genero
 def obtener_peliculas_por_genero(genero):
-    # Validar que se haya ingresado el género de la película correcto
+    # Validar que se haya ingresado el genero de la pelicula correcto
     if genero == "" or not is_alpha_or_underscore(genero) or genero.isspace():
-        return jsonify({'mensaje': 'El género de la película debe ser una palabra sin espacios ni números.'}), 400
-    # Normalizar el género de entrada
+        return jsonify({'mensaje': 'El genero de la pelicula debe ser una palabra sin espacios ni numeros.'}), 400
+    # Normalizar el genero de entrada
     genero = normalize_input(genero)
-    # Filtrado de la lista de películas por género
+    # Filtrado de la lista de peliculas por genero
     peliculas_filtradas = [pelicula for pelicula in peliculas if genero == normalize_input(pelicula['genero'])]
-    # Devolver la lista de películas filtradas por género y el código de estado 200 (OK)
+    # Devolver la lista de peliculas filtradas por genero y el código de estado 200 (OK)
     return jsonify(peliculas_filtradas), 200
 
 
-# Lógica para buscar películas por título
+# Lógica para buscar peliculas por titulo
 def buscar_peliculas(titulo):
-    # Validar que se haya ingresado el título de la película correcto
+    # Validar que se haya ingresado el titulo de la pelicula correcto
     if titulo == "" or not is_alpha_or_underscore(titulo) or titulo.isspace():
-        return jsonify({'mensaje': 'El título de la película debe ser una palabra sin espacios ni números.'}), 400
-    # Normalizar el título de entrada
+        return jsonify({'mensaje': 'El titulo de la pelicula debe ser una palabra sin espacios ni numeros.'}), 400
+    # Normalizar el titulo de entrada
     titulo = normalize_input(titulo)
-    # Filtrado de la lista de películas por título
+    # Filtrado de la lista de peliculas por titulo
     peliculas_filtradas = [pelicula for pelicula in peliculas if titulo in normalize_input(pelicula['titulo'])]
-    # Devolver la lista de películas filtradas por título y el código de estado 200 (OK)
+    # Devolver la lista de peliculas filtradas por titulo y el código de estado 200 (OK)
     return jsonify(peliculas_filtradas), 200
 
 
-# Lógica para sugerir una película al azar
+# Lógica para sugerir una pelicula al azar
 def sugerir_pelicula():
-    # Seleccionar una película al azar de la lista de películas
+    # Seleccionar una pelicula al azar de la lista de peliculas
     pelicula_sugerida = random.choice(peliculas)
-    # Validar que haya películas en la lista
+    # Validar que haya peliculas en la lista
     if not pelicula_sugerida:
-        return jsonify({'mensaje': 'No hay películas para sugerir.'}), 404
-    # Devolver los detalles de la película sugerida y el código de estado 200 (OK)
+        return jsonify({'mensaje': 'No hay peliculas para sugerir.'}), 404
+    # Devolver los detalles de la pelicula sugerida y el código de estado 200 (OK)
     return jsonify(pelicula_sugerida), 200
 
 
-# Lógica para sugerir una película al azar por género
+# Lógica para sugerir una pelicula al azar por genero
 def sugerir_pelicula_por_genero(genero):
-    # Validar que se haya ingresado el género de la película correcto
+    # Validar que se haya ingresado el genero de la pelicula correcto
     if genero == "" or genero.isspace() or not is_alpha_or_underscore(genero):
-        return jsonify({'mensaje': 'Falta el género de la película.'}), 400
-    # Normalizar el género de entrada
+        return jsonify({'mensaje': 'Falta el genero de la pelicula.'}), 400
+    # Normalizar el genero de entrada
     genero = normalize_input(genero)
-    # Filtrado de la lista de películas por género
+    # Filtrado de la lista de peliculas por genero
     peliculas_filtradas = [pelicula for pelicula in peliculas if genero == normalize_input(pelicula['genero'])]
-    # Seleccionar una película al azar de la lista de películas filtradas
+    # Seleccionar una pelicula al azar de la lista de peliculas filtradas
     pelicula_sugerida = random.choice(peliculas_filtradas)
-    # Validar que haya películas en la lista filtrada, devolver los 
-    # detalles de la película sugerida y el código de estado 200 (OK)
+    # Validar que haya peliculas en la lista filtrada, devolver los 
+    # detalles de la pelicula sugerida y el código de estado 200 (OK)
     return jsonify(pelicula_sugerida), 200
 
 # Lógica para obtener un nuevo ID
@@ -153,11 +153,11 @@ def obtener_nuevo_id():
         return 1
 
 
-# Lógica para obtener una recomendación de película para el próximo feriado
+# Lógica para obtener una recomendación de pelicula para el próximo feriado
 def feriado_recomendacion(genero):
-    # Validar que se haya ingresado el género de la película correcto
+    # Validar que se haya ingresado el genero de la pelicula correcto
     if genero == "" or genero.isspace() or not is_alpha_or_underscore(genero):
-        return jsonify({'mensaje': 'Falta el género de la película.'}), 400
+        return jsonify({'mensaje': 'Falta el genero de la pelicula.'}), 400
     # Obtenemos el próximo feriado
     next_holiday = NextHoliday()
     next_holiday.fetch_holidays()
@@ -165,7 +165,7 @@ def feriado_recomendacion(genero):
     peliculas_filtradas = [pelicula for pelicula in peliculas if genero == normalize_input(pelicula['genero'])]
     # seleccionamos una pelicula randomizada de entre todas con el genero seleccionado
     pelicula_sugerida = random.choice(peliculas_filtradas)['titulo']
-    # Devolver los detalles de la película recomendada y el código de estado 200 (OK)
+    # Devolver los detalles de la pelicula recomendada y el código de estado 200 (OK)
     return jsonify({
         'prox_feriado': f"{next_holiday.holiday['dia']}/{next_holiday.holiday['mes']}",
         'motivo': (next_holiday.holiday['motivo']),
