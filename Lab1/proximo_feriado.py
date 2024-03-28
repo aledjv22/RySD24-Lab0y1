@@ -39,7 +39,6 @@ class NextHoliday:
     def fetch_holidays(self, type=None):
         response = requests.get(get_url(self.year))
         data = response.json()
-        print(data[0])
         self.set_next(data,type)
 
     def render(self):
