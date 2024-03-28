@@ -82,27 +82,27 @@ def test_feriado_recomendacion3(mock_response):
     response = requests.get('http://localhost:5000/peliculas/recomendacion/Ciencia ficción')
     assert response.status_code == 400
 
-def sugerir_pelicula_por_genero(mock_response):
+def test_sugerir_pelicula_por_genero(mock_response):
     response = requests.get('http://localhost:5000/peliculas/sugerir/drama')
     assert response.status_code == 200
 
-def sugerir_pelicula_por_genero2(mock_response):
+def test_sugerir_pelicula_por_genero2(mock_response):
     response = requests.get('http://localhost:5000/peliculas/sugerir/ciencia_ficcion')
     assert response.status_code == 200
 
-def sugerir_pelicula_por_genero3(mock_response):
+def test_sugerir_pelicula_por_genero3(mock_response):
     response = requests.get('http://localhost:5000/peliculas/sugerir/Ciencia ficción')
     assert response.status_code == 400
 
-def sugerir_pelicula(mock_response):
+def test_sugerir_pelicula(mock_response):
     response = requests.get('http://localhost:5000/peliculas/sugerir')
     assert response.status_code == 200
 
-def buscar_peliculas(mock_response):
+def test_buscar_peliculas(mock_response):
     response = requests.get('http://localhost:5000/peliculas/buscar/The')
     assert response.status_code == 200
 
-def obtener_peliculas_por_genero(mock_response):
+def test_obtener_peliculas_por_genero(mock_response):
     response = requests.get('http://localhost:5000/peliculas/genero/drama')
     assert response.status_code == 200
 
