@@ -13,7 +13,7 @@ peliculas = [
   {'id': 12, 'titulo': 'Fight Club', 'genero': 'Drama'},
   {'id': 13, 'titulo': 'Avatar', 'genero': 'Acción'},
   {'id': 14, 'titulo': 'The Matrix', 'genero': 'Ciencia ficción'},
-  {'id': 15, 'titulo': 'Harry Potter and the Sorcerer\'s Stone', 'genero': 'Fantasía'},
+  {'id': 15, 'titulo': 'Harry Potter', 'genero': 'Fantasía'},
   {'id': 16, 'titulo': 'The Godfather', 'genero': 'Crimen'},
   {'id': 17, 'titulo': 'Titanic', 'genero': 'Romance'},
   {'id': 18, 'titulo': 'Forrest Gump', 'genero': 'Drama'},

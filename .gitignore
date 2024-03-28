@@ -269,4 +269,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# LibreOffice
+.~lock.2024 Lab1_enunciado.odt#
+
 # End of https://www.toptal.com/developers/gitignore/api/python,windows,linux,macos,visualstudiocode
