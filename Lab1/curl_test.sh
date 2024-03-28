@@ -37,7 +37,7 @@ curl_request="curl -s "$localhost/peliculas/8""
 echo -e "Consulta realizada: ${cyan}$curl_request"
 $curl_request > resultado.json
 echo -e "${NC}El resultado es: "
-cat resultado.json
+cat resultado.json | jq
 echo ""
 
 ## Respuesta incorrecta [404].
@@ -48,7 +48,7 @@ curl_request="curl -s "$localhost/peliculas/100000""
 echo -e "Consulta realizada: ${cyan}$curl_request"
 $curl_request > resultado.json
 echo -e "${NC}El resultado es: "
-cat resultado.json
+cat resultado.json | jq
 echo ""
 
 # Obtener una pelicula por genero:
@@ -60,7 +60,7 @@ curl_request="curl -s "$localhost/peliculas/genero/ciencia_ficcion""
 echo -e "Consulta realizada: ${cyan}$curl_request"
 $curl_request > resultado.json
 echo -e "${NC}El resultado es: "
-cat resultado.json
+cat resultado.json | jq
 echo ""
 
 ## Respuesta incorrecta [400].
@@ -71,7 +71,7 @@ curl_request="curl -s "$localhost/peliculas/genero/232321""
 echo -e "Consulta realizada: ${cyan}$curl_request"
 $curl_request > resultado.json
 echo -e "${NC}El resultado es: "
-cat resultado.json
+cat resultado.json | jq
 echo ""
 
 # Obtener peliculas por titulo
@@ -83,7 +83,7 @@ curl_request="curl -s "$localhost/peliculas/buscar/the_lord_of_the_rings""
 echo -e "Consulta realizada: ${cyan}$curl_request"
 $curl_request > resultado.json
 echo -e "${NC}El resultado es: "
-cat resultado.json
+cat resultado.json | jq
 echo ""
 
 ## Respuesta incorrecta [400].
@@ -94,7 +94,7 @@ curl_request="curl -s "$localhost/peliculas/buscar/232321""
 echo -e "Consulta realizada: ${cyan}$curl_request"
 $curl_request > resultado.json
 echo -e "${NC}El resultado es: "
-cat resultado.json
+cat resultado.json | jq
 echo ""
 
 
@@ -107,7 +107,7 @@ curl_request="curl -s "$localhost/peliculas/sugerir""
 echo -e "Consulta realizada: ${cyan}$curl_request"
 $curl_request > resultado.json
 echo -e "${NC}El resultado es: "
-cat resultado.json
+cat resultado.json | jq
 echo ""
 
 
@@ -120,7 +120,7 @@ curl_request="curl -s "$localhost/peliculas/sugerir/ciencia_ficcion""
 echo -e "Consulta realizada: ${cyan}$curl_request"
 $curl_request > resultado.json
 echo -e "${NC}El resultado es: "
-cat resultado.json
+cat resultado.json | jq
 echo ""
 
 ## Respuesta incorrecta [400].
@@ -131,7 +131,7 @@ curl_request="curl -s "$localhost/peliculas/sugerir/232321""
 echo -e "Consulta realizada: ${cyan}$curl_request"
 $curl_request > resultado.json
 echo -e "${NC}El resultado es: "
-cat resultado.json
+cat resultado.json | jq
 echo ""
 
 
@@ -145,7 +145,7 @@ curl_request="curl -s "$localhost/peliculas/recomendacion/drama""
 echo -e "Consulta realizada: ${cyan}$curl_request"
 $curl_request > resultado.json
 echo -e "${NC}El resultado es: "
-cat resultado.json
+cat resultado.json | jq 
 echo ""
 
 echo -e "${blue}=================================="
@@ -172,7 +172,7 @@ curl_request=$(curl -s -X POST -H "Content-Type: application/json" -d "$data" "$
 echo -e "Consulta realizada: ${cyan}$curl_command"
 echo "$curl_request" > resultado.json
 echo -e "${NC}El resultado es: "
-cat resultado.json
+cat resultado.json | jq
 echo ""
 
 ## Respuesta incorrecta [400].
@@ -185,7 +185,7 @@ curl_request=$(curl -s -X POST -H "Content-Type: application/json" -d "$data" "$
 echo -e "Consulta realizada: ${cyan}$curl_command"
 echo "$curl_request" > resultado.json
 echo -e "${NC}El resultado es: "
-cat resultado.json
+cat resultado.json | jq
 echo ""
 
 echo -e "${blue}==================================="
@@ -212,7 +212,7 @@ curl_request=$(curl -s -X PUT -H "Content-Type: application/json" -d "$data" "$l
 echo -e "Consulta realizada: ${cyan}$curl_command"
 echo "$curl_request" > resultado.json
 echo -e "${NC}El resultado es: "
-cat resultado.json
+cat resultado.json | jq
 echo ""
 
 ## Respuesta incorrecta [400].
@@ -225,7 +225,7 @@ curl_request=$(curl -s -X PUT -H "Content-Type: application/json" -d "$data" "$l
 echo -e "Consulta realizada: ${cyan}$curl_command"
 echo "$curl_request" > resultado.json
 echo -e "${NC}El resultado es: "
-cat resultado.json
+cat resultado.json | jq
 echo ""
 
 ## Respuesta incorrecta [404].
@@ -238,7 +238,7 @@ curl_request=$(curl -s -X PUT -H "Content-Type: application/json" -d "$data" "$l
 echo -e "Consulta realizada: ${cyan}$curl_command"
 echo "$curl_request" > resultado.json
 echo -e "${NC}El resultado es: "
-cat resultado.json
+cat resultado.json | jq
 echo ""
 
 echo -e "${blue}=================================="
@@ -263,7 +263,7 @@ curl_request=$(curl -s -X DELETE "$localhost/peliculas/50")
 echo -e "Consulta realizada: ${cyan}$curl_command"
 echo "$curl_request" > resultado.json
 echo -e "${NC}El resultado es: "
-cat resultado.json
+cat resultado.json | jq
 echo ""
 
 ## Respuesta incorrecta [404].
@@ -275,7 +275,7 @@ curl_request=$(curl -s -X DELETE "$localhost/peliculas/100000")
 echo -e "Consulta realizada: ${cyan}$curl_command"
 echo "$curl_request" > resultado.json
 echo -e "${NC}El resultado es: "
-cat resultado.json
+cat resultado.json | jq
 echo ""
 
 echo -e "${blue}====================================="
