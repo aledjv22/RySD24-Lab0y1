@@ -24,7 +24,8 @@ class NextHoliday:
         }
         if holiday_type is not None:
             holiday = next(
-                (h for h in holidays if h['tipo'] == holiday_type and (h['mes'] == today['month'] and h['dia'] > today['day'] or h['mes'] > today['month'])), 
+                (h for h in holidays if h['tipo'] == holiday_type and (h['mes'] == today['month'] and \
+                                                                       h['dia'] > today['day'] or h['mes'] > today['month'])), 
                 holidays[0]
             )
         else:
@@ -36,10 +37,10 @@ class NextHoliday:
         self.loading = False
         self.holiday = holiday
 
-    def fetch_holidays(self, type=None):
+    def fetch_holidays(self, holiday_type=None):
         response = requests.get(get_url(self.year))
         data = response.json()
-        self.set_next(data,type)
+        self.set_next(data,holiday_type)
 
     def render(self):
         response = requests.get(get_url(self.year))
@@ -56,7 +57,43 @@ class NextHoliday:
             print("Tipo:")
             print(self.holiday['tipo'])
 
-
+"""
+print("========================================")
+print("Inicio de las pruebas de la API de feriados.")
+print("========================================")
+print()
+print("------------------------------------------------")
+print("Proximo feriado sin parametro tipo")
+print("------------------------------------------------")
+next_holiday = NextHoliday()
+next_holiday.fetch_holidays()
+next_holiday.render()
+print()
+print("------------------------------------------------")
+print("Proximo feriado tipo inamovible")
+print("------------------------------------------------")
+next_holiday = NextHoliday()
+next_holiday.fetch_holidays('inamovible')
+next_holiday.render()
+print()
+print("------------------------------------------------")
+print("Proximo feriado tipo transladable")
+print("------------------------------------------------")
+next_holiday = NextHoliday()
+next_holiday.fetch_holidays('trasladable')
+next_holiday.render()
+print()
+print("------------------------------------------------")
+print("Proximo feriado tipo nolaborable")
+print("------------------------------------------------")
+next_holiday = NextHoliday()
+next_holiday.fetch_holidays('nolaborable')
+next_holiday.render()
+print()
+print("------------------------------------------------")
+print("Proximo feriado tipo puente")
+print("------------------------------------------------")
 next_holiday = NextHoliday()
 next_holiday.fetch_holidays('puente')
 next_holiday.render()
+"""
