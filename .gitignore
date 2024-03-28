@@ -272,4 +272,7 @@ $RECYCLE.BIN/
 # LibreOffice
 .~lock.2024 Lab1_enunciado.odt#
 
+# Resultados_test
+resultado.json
+
 # End of https://www.toptal.com/developers/gitignore/api/python,windows,linux,macos,visualstudiocode
